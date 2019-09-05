@@ -1,0 +1,40 @@
+/* general */
+.info{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.full-view{
+	width: 90%;
+	border: 1px solid black;
+	text-align: center;
+}
+
+
+.full-view img{
+	margin-top: 1%;
+	width: 70%;
+}
+
+/* all reviews */
+.reviews-container{
+    border: 1px solid black;
+    padding: 3%;
+}
+
+/* info or timestamp and writer */
+.review-meta{
+    font-size: 10px;
+}
+/* the container for the  */
+.review-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rating{
+    text-align: center;
+}

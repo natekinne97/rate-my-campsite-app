@@ -1,0 +1,24 @@
+.write-review-container{
+    width: 80%;
+    margin-bottom: 5%;
+}
+.write-review{
+    border: 1px solid black; 
+}
+
+/* text area sizing */
+.write-review textarea{
+    width: 120%;
+    height: 150px;
+}
+
+/* select sizing */
+.write-review select{
+    margin: 4%;
+    font-size: 25px;
+}
+
+.write-review button{
+    margin: 4%;
+    font-size: 25px;
+}

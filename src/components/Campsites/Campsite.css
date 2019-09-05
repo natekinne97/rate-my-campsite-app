@@ -1,0 +1,28 @@
+/*all posts*/
+.all-posts{
+	width: 90%;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 0 auto;
+	margin-top: 2%;
+}
+
+.post{
+	border: 1px solid black;
+	cursor: pointer;
+	text-align: center;
+	/* width: 24%; */
+	margin: 3%;
+}
+
+.img-post{
+	width: 100%;
+}
+
+@media only screen and (min-width: 768px){
+	.all-posts{
+		flex-wrap: nowrap;
+	}
+}
