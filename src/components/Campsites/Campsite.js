@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCampground } from '@fortawesome/free-solid-svg-icons'
+
 import './Campsite.css';
 import STORE from '../../Store';
 
+// displays all sites
 class Campsite extends React.Component{
 
 
@@ -14,9 +18,13 @@ class Campsite extends React.Component{
                     
                     <Link key={site.id}  to={`/info/${site.id}`}>
                         <div className="post">
-                            <div><img className="img-post" src={site.picture} alt={site.alt} /></div>
-                            <p>{site.state}</p>
-                            <p>{site.rating}/{site.reviews}</p>
+                            <div className="img-post" style={{backgroundImage: `url(${site.picture})`}}></div>
+                            <p>{site.name}</p>
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                            <p>{site.rating} Tents {site.reviews} Reviews</p>
                         </div>
                     </Link>
                    

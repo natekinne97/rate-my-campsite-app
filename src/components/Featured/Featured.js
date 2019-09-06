@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCampground } from '@fortawesome/free-solid-svg-icons'
+
 import './Featured.css';
 
 // displays the featured component on the home page
@@ -25,9 +28,16 @@ class Featured extends React.Component {
                             <img src="https://i.imgur.com/hrTJ5ke.jpg" alt="some picture"></img>
                         </div>
                         {/* featured info */}
-                        <div>
-                            <p>Washington</p>
-                            <p>4.5 tents/25 reviews</p>
+                        <div className="feature-info">
+                            <h3>Fall Lake</h3>
+                            <div className="feature-rating">
+                                <FontAwesomeIcon icon={faCampground} />
+                                <FontAwesomeIcon icon={faCampground} />
+                                <FontAwesomeIcon icon={faCampground} />
+                                <FontAwesomeIcon icon={faCampground} />
+                                <FontAwesomeIcon icon={faCampground} />
+                            </div>
+                            <p>4.5 Tents 20 reviews</p>     
                         </div>
                     </div>
                </Link>

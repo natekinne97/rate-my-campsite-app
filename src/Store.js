@@ -19,29 +19,29 @@ const STORE = {
             "state": "Washington",
             "rating": 3.9,
             "reviews": 10,
-            "picture": "https://i.imgur.com/2NF3pvW.jpg",
+            "picture": "https://i.imgur.com/RhdiHIv.jpg",
             "alt": "a campsite"
         },
         {
             "id": "3",
             "park-name": "olympia",
             "description": "something is cool about this park",
-            "city": "Seatle",
-            "state": "Washington",
+            "city": "Portland",
+            "state": "Oregon",
             "rating": 3.9,
             "reviews": 10,
-            "picture": "https://i.imgur.com/2NF3pvW.jpg",
+            "picture": "https://i.imgur.com/iWMx3yn.jpg",
             "alt": "a campsite"
         },
         {
             "id": "4",
             "park-name": "olympia",
             "description": "something is cool about this park",
-            "city": "Seatle",
-            "state": "Washington",
+            "city": "Pheonix",
+            "state": "Arizona",
             "rating": 3.9,
             "reviews": 10,
-            "picture": "https://i.imgur.com/2NF3pvW.jpg",
+            "picture": "https://i.imgur.com/ZvsiAbv.jpg",
             "alt": "a campsite"
         }
     ],
