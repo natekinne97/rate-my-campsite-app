@@ -8,7 +8,10 @@ class Homepage extends React.Component{
         return(
             <>
                 <Featured/>
-                <Campsite/>
+                
+                    <Campsite />
+               
+               
             </>
         );
     }

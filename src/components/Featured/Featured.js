@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCampground } from '@fortawesome/free-solid-svg-icons'
-
+import apiService from '../../api-services/api-services';
+import campsiteContext from '../../context/context';
 import './Featured.css';
 
 // displays the featured component on the home page
@@ -10,40 +11,80 @@ import './Featured.css';
 // this component requires a large amount of its own logic
 // to display the correct site and image
 class Featured extends React.Component {
+    static contextType = campsiteContext
 
+ 
+    // import all campsites
+    componentDidMount() {
+        this.context.clearError()
+        // get all campsites
+        apiService.getFeaturedSite()
+            .then(result=>{
+               
+                this.context.setCampsites(result);
+            })
+            .catch(this.context.setError);
+    }
+
+
+    renderFeatured(){
+        // get campsite data
+        const {campsites=[]} = this.context;
+       
+        // id, img, name, number_of_reviews, avg_reviews
+       
+        // check if there is data for campsite after the 4 times its called for
+        // some reason
+        if(!campsites[0]){
+            console.log('undefined')
+        }else{
+            // make an object out of the data because it runs twices
+            // anc comes back with unusable data when divided differently
+            let arr = {
+                "id":  campsites[0].id,
+                "name": campsites[0].name,
+                "img":campsites[0].img,
+                "number_of_reviews": campsites[0].number_of_reviews,
+                "avg_reviews": parseFloat(campsites[0].avg_reviews).toFixed(1)
+            }
+            // return the data
+            return <Link to={`/info/${arr.id}`}>
+                <div className="featured-container">
+                    <div className="featured-pic" style={{ backgroundImage: `url(${arr.img})` }}></div>
+                    {/* featured info */}
+                    <div className="feature-info">
+                        <h3>{arr.name}</h3>
+                        <div className="feature-rating">
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                            <FontAwesomeIcon icon={faCampground} />
+                        </div>
+                        <p>{arr.avg_reviews} Tents {arr.number_of_reviews} reviews</p>
+                    </div>
+                </div>
+            </Link>
+
+        }
+        
+
+       
+    }
 
 
     render(){
-
+        
         return(
+            
             <div className="featured-shell">
                 <h3>Featured Campsite</h3>
-
-               <Link to='/info/:infoId'>
-                    <div className="featured-container">
-                        <div className="featured-pic">
-                            {/* in the future this will
-                        be replaced  by a div that has a
-                        dynamic background */}
-                            <img src="https://i.imgur.com/hrTJ5ke.jpg" alt="some picture"></img>
-                        </div>
-                        {/* featured info */}
-                        <div className="feature-info">
-                            <h3>Fall Lake</h3>
-                            <div className="feature-rating">
-                                <FontAwesomeIcon icon={faCampground} />
-                                <FontAwesomeIcon icon={faCampground} />
-                                <FontAwesomeIcon icon={faCampground} />
-                                <FontAwesomeIcon icon={faCampground} />
-                                <FontAwesomeIcon icon={faCampground} />
-                            </div>
-                            <p>4.5 Tents 20 reviews</p>     
-                        </div>
-                    </div>
-               </Link>
+               
+                {this.renderFeatured()}
 
             </div>
         );
+        
     }
 }
 

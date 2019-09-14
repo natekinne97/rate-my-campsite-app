@@ -1,30 +1,47 @@
 import React from "react";
+import campsiteContext from '../../context/context';
+import apiService from '../../api-services/api-services';
 import './Review.css'
 
-// the purpose of this class is to render and handle submitted reviews
+// the purpose of this class is to handle submitted reviews
 // rendered inside Info.js
 class Review extends React.Component{
+    static contextType = campsiteContext
+
+    
+
+    handleSubmit = e =>{
+        e.preventDefault();
+
+        const {siteInfo} = this.context;
+        const { rev, rating} = e.target;
+
+        apiService.postReview(rev.value, Number(rating.value), Number(siteInfo[0].id))
+            .then(this.context.addReview)
+            .then(() => {
+                rev.value = ''
+            })
+            .catch(this.context.setError)
+    }
 
     render(){
         return(
-            <div className="write-review-container">
-                <h3>Write a review</h3>
-                <div className="write-review">
-                    <form className="gen-form ">
-                        <label htmlFor="rev">Review</label>
-                        <textarea name="rev"></textarea>
-                        <label>Tents</label>
-                        <select>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        <button type="submit">Submit Review</button>
-                    </form>
-                </div>
-            </div>
+            
+            <form className="gen-form " onSubmit={this.handleSubmit}>
+                <label htmlFor="rev">Review</label>
+                <textarea name="rev"></textarea>
+                <label>Tents</label>
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button type="submit">Submit Review</button>
+            </form>
+             
+           
         );
     }
 }

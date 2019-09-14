@@ -10,18 +10,32 @@
 	width: 90%;
 	border: 1px solid black;
 	text-align: center;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
-.full-view img{
+.info-img{
 	margin-top: 1%;
-	width: 70%;
+	width: 37vh;
+    height: 42vh;
+	background-size: cover;
+  	background-position: 50% 50%;
 }
 
 /* all reviews */
 .reviews-container{
+	width: 90%;
     border: 1px solid black;
     padding: 3%;
+}
+
+.reviews-container h3{
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	margin: 1% 1% 0 1%;
 }
 
 /* info or timestamp and writer */
@@ -37,4 +51,13 @@
 
 .rating{
     text-align: center;
+}
+
+/* tablet and higher */
+@media only screen and (min-width: 768px){
+	.info-img{
+		width: 59vh;
+    	height: 47vh;
+
+	}
 }

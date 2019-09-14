@@ -1,16 +1,25 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
+
+// import context
+import campsiteContext from '../../context/context';
 // Components
 import Menu from '../Menu/Menu';
 import Homepage from '../Homepage/Homepage';
 import AddCampsite from '../AddCampsite/AddCampsite';
-import Login from '../Login/Login';
+import LoginPage from '../../routes/LoginPage'
 import CreateAccount from '../Create-Account/CreateAccount';
 import Info from '../Info/Info';
+// private route
+import PrivateRoute from '../../routes/private';
 
 class App extends React.Component{
+  static contextType = campsiteContext;
 
+  
+  // renders menu on specific fields
   renderMenu(){
+    
     return(
       <>
         {['/', '/info/:infoId', '/post', '/login', '/signup'].map(path => (
@@ -40,14 +49,14 @@ class App extends React.Component{
               component={Homepage}
             />
             {/* Post  new site*/}
-            <Route
+            <PrivateRoute
               path='/post'
               component={AddCampsite}
               />
             {/* login route */}
             <Route
               path="/login"
-              component={Login}
+              component={LoginPage}
             />
             {/* signup */}
             <Route

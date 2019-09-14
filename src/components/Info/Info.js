@@ -1,59 +1,113 @@
 import React from "react";
-// include store for easier reading code and less code
-import STORE from '../../Store';
 import Review from '../Reviews/Review';
+import {Link} from 'react-router-dom'
 import './Info.css';
+import TokenService from '../../services/token-service';
+import campsiteContext from '../../context/context';
+import apiService from '../../api-services/api-services';
 
 // displays all info of the campsite in an easy to read format
 class Info extends React.Component{
-   
+    static contextType = campsiteContext
+
+    // get the params
+    static defaultProps = {
+        match: { params: {} },
+    }
+
+    componentDidMount(){
+        const { infoId } = this.props.match.params
+        console.log(typeof infoId);
+        // get campsite info
+        apiService.getCampsiteById(infoId)
+            .then(this.context.setInfo)
+            .catch(this.context.setError);
+        
+        // get all reviews
+        apiService.getReviewsForSite(infoId)
+            .then(this.context.setReview)
+            .catch(this.setError);
+           
+    }
+
+    renderInfo(){
+        const { siteInfo=[] } = this.context;
+        
+        return siteInfo.map(info => 
+            <div key={info.id} className="full-view">
+                <header>{info.name}</header>
+                <div className="info-img" style={{ backgroundImage: `url(${info.img})` }}></div>
+                <p>Tent Rating</p>
+                <p>3.8/{info.number_of_reviews} Reviews</p>
+                <p>{info.description}</p>
+            </div>
+        ) 
+    }
+
+    // send user to login to write review if not logged in
+    renderReviewButton(){
+        return(
+            <>
+                <Link
+                className="review-login-link"
+                to="/login">
+                    Login or Signup to write a review
+                </Link>
+            </>
+        )
+    }
+
+    renderReviews(){
+        const { reviews=[] } = this.context;
+        return reviews.map(rev=>
+            <div key={rev.id} className="reviews">
+                {/* reviewer info */}
+                <div className="review-info">
+                    <div className="review-meta">
+                        <p>author</p>
+                        <p>{rev.date_created}</p>
+                        {console.log(rev.date_created, 'date created')}
+                    </div>
+                    <div className="rating">
+                        <p>Rating: {rev.rating}</p>
+                    </div>
+                </div>
+
+
+                <div className="review-des">
+                    <p>{rev.text}</p>
+                </div>
+                <hr />
+            </div>
+           
+        )
+    }
+
     render(){
+        
+        
         return(
             <div className="info">
                 
                 {/* Main Content */}
-                <div className="full-view">
-                    <header>Olympic National Park</header>
-                    <img src="https://i.imgur.com/2NF3pvW.jpg"/>
-                        <p>Tent Rating</p>
-                        <p>3.8/10 Reviews</p>
-                        <p>
-                            This campsite provides an excelent view
-                            of the pacific ocean. Located on the shores of
-                            Olympic National Park it provides an exelent place to
-                            camp for anyone willing to make the 2 mile trek to the
-                            site.
-			            </p>
-		        </div>
+                {this.renderInfo()}
 
                {/* reviews */}
                 <h3>Reviews</h3>
+                
 		    <div className="reviews-container">
-                
-                {STORE.Reviews.map(review => (
-                    <div key={review.id} className="reviews">
-                        {/* reviewer info */}
-                       <div className="review-info">
-                           <div className="review-meta">
-                                <p>{review.author}</p>
-                                <p>{review.date_posted}</p>
-                           </div>
-                            <div className="rating">
-                                <p>Rating: {review.rating}</p>
-                            </div>
-                       </div>
-                       
-                        
-                        <div className="review-des">
-                            <p>{review.review}</p>
-                        </div>
-                        <hr/>
-                    </div>
-                ))}
+                    {this.renderReviews()}
             </div>
-
-                <Review/>
-                
+                <div className="write-review-container">
+                    <h3>Write a review</h3>
+                    <div className="write-review">
+                {/* renders the write a review form */}
+                {TokenService.hasAuthToken()
+                ? <Review/>
+                : this.renderReviewButton()
+                }
+                    </div>
+                </div>
             </div>
         );
     }
