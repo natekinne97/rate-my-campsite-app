@@ -23,6 +23,15 @@ class Campsite extends React.Component{
             .catch(this.context.setError);
     }
 
+    // render all the tents for the avg review
+    renderTents = num => {
+        let arr = [];
+        for (let i = 0; i < num ; i++) {
+            arr.push(<FontAwesomeIcon key={i} icon={faCampground} />);
+        }
+        return arr;
+    }
+
     // get map the campsites and print each one
     renderCampsites(){
         
@@ -33,10 +42,7 @@ class Campsite extends React.Component{
                     <div className="post">
                         <div className="img-post" style={{ backgroundImage: `url(${site.img})` }}></div>
                         <p>{site.name}</p>
-                        <FontAwesomeIcon icon={faCampground} />
-                        <FontAwesomeIcon icon={faCampground} />
-                        <FontAwesomeIcon icon={faCampground} />
-                        <FontAwesomeIcon icon={faCampground} />
+                    {this.renderTents(site.avg_reviews)}
                     <p> {parseFloat(site.avg_reviews).toFixed(1)}Tents  
                    
                    </p>

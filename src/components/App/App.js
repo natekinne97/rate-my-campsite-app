@@ -8,7 +8,9 @@ import Menu from '../Menu/Menu';
 import Homepage from '../Homepage/Homepage';
 import AddCampsite from '../AddCampsite/AddCampsite';
 import LoginPage from '../../routes/LoginPage'
-import CreateAccount from '../Create-Account/CreateAccount';
+import CreatePage from '../../routes/CreatePage';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import Reset from '../Reset/Reset';
 import Info from '../Info/Info';
 // private route
 import PrivateRoute from '../../routes/private';
@@ -22,7 +24,7 @@ class App extends React.Component{
     
     return(
       <>
-        {['/', '/info/:infoId', '/post', '/login', '/signup'].map(path => (
+        {['/', '/info/:infoId', '/post', '/login', '/signup', '/reset/:token','/forgot-password'].map(path => (
           <Route 
             exact
             key={path}
@@ -35,6 +37,7 @@ class App extends React.Component{
   }
 
   render(){
+    localStorage.lastUrl = window.location.pathname;
     return(
       <div>
         <nav>
@@ -61,12 +64,22 @@ class App extends React.Component{
             {/* signup */}
             <Route
               path="/signup"
-              component={CreateAccount}
+              component={CreatePage}
             />
             {/* info/details page */}
             <Route
               path='/info/:infoId'
               component={Info}
+            />
+            {/* forgot password */}
+            <Route
+              path='/forgot-password'
+              component={ForgotPassword}
+            />
+            {/* reset password */}
+            <Route
+            path='/reset/:token'
+            component={Reset}
             />
           </Switch>
         </main>

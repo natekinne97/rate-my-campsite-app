@@ -24,6 +24,10 @@
   	background-position: 50% 50%;
 }
 
+.para{
+	margin: 1%;
+}
+
 /* all reviews */
 .reviews-container{
 	width: 90%;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LoginForm from '../components/Login/Login'
+import CreateAccount from '../components/Create-Account/CreateAccount';
 
 // handles login actions 
 export default class LoginPage extends Component {
@@ -10,19 +10,19 @@ export default class LoginPage extends Component {
         },
     }
 
-    handleLoginSuccess = () => {
+    handleCreateSuccess = () => {
         const { history } = this.props
         history.push(localStorage.lastUrl || '/');
     }
 
     render() {
         return (
-          <React.Fragment>
-                <LoginForm
+            <React.Fragment>
+                <CreateAccount
                     onLoginSuccess={this.handleLoginSuccess}
                 />
-          </React.Fragment>
-  
+            </React.Fragment>
+
         )
     }
 }

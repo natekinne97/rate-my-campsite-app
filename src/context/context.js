@@ -48,6 +48,7 @@ export class CampsiteProvider extends Component{
             reviews
         })
     }
+    // but doesnt always refresh correctly
     // add review to the state
     // inserts to the state a new review
     addReview = review => {

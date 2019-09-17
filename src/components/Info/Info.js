@@ -2,6 +2,8 @@ import React from "react";
 import Review from '../Reviews/Review';
 import {Link} from 'react-router-dom'
 import './Info.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCampground } from '@fortawesome/free-solid-svg-icons'
 import TokenService from '../../services/token-service';
 import campsiteContext from '../../context/context';
 import apiService from '../../api-services/api-services';
@@ -29,6 +31,15 @@ class Info extends React.Component{
             .catch(this.setError);
            
     }
+    // render all the tents for the avg review
+    renderTents = num => {
+        let arr = [];
+        for (let i = 0; i < num; i++) {
+            arr.push(<FontAwesomeIcon key={i} icon={faCampground} />);
+        }
+        return arr;
+    } 
+
 
     renderInfo(){
         const { siteInfo=[] } = this.context;
@@ -37,8 +48,12 @@ class Info extends React.Component{
             <div key={info.id} className="full-view">
                 <header>{info.name}</header>
                 <div className="info-img" style={{ backgroundImage: `url(${info.img})` }}></div>
-                <p>Tent Rating</p>
-                <p>3.8/{info.number_of_reviews} Reviews</p>
+                <p className="para">{info.park}</p>
+                <p className="para">{info.city}, {info.state}</p>
+                <div className="feature-rating">
+                    {this.renderTents(info.avg_reviews)}
+                </div>
+                <p>{parseFloat(info.avg_reviews).toFixed(1)}/{info.number_of_reviews} Reviews</p>
                 <p>{info.description}</p>
             </div>
         ) 
@@ -56,6 +71,7 @@ class Info extends React.Component{
             </>
         )
     }
+
 
     renderReviews(){
         const { reviews=[] } = this.context;

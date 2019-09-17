@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link } from 'react-router-dom';
 import authApi from '../../api-services/auth-api';
 import TokenService from '../../services/token-service';
 
@@ -37,7 +38,9 @@ class Login extends React.Component{
                     <input type="password" name="password" required/>
 
                     <button type="submit">Login</button>
+                    <Link to='/forgot-password'>Forgot password?</Link>
 		        </form>
+                
             </div>
         );
     }

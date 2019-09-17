@@ -47,6 +47,10 @@ class Featured extends React.Component {
                 "number_of_reviews": campsites[0].number_of_reviews,
                 "avg_reviews": parseFloat(campsites[0].avg_reviews).toFixed(1)
             }
+            let tents = []
+            for (let i = 0; i < arr.avg_reviews - 1; i++) {
+                tents[i] = <FontAwesomeIcon key={i} icon={faCampground} />;
+            }
             // return the data
             return <Link to={`/info/${arr.id}`}>
                 <div className="featured-container">
@@ -55,11 +59,7 @@ class Featured extends React.Component {
                     <div className="feature-info">
                         <h3>{arr.name}</h3>
                         <div className="feature-rating">
-                            <FontAwesomeIcon icon={faCampground} />
-                            <FontAwesomeIcon icon={faCampground} />
-                            <FontAwesomeIcon icon={faCampground} />
-                            <FontAwesomeIcon icon={faCampground} />
-                            <FontAwesomeIcon icon={faCampground} />
+                            {tents}
                         </div>
                         <p>{arr.avg_reviews} Tents {arr.number_of_reviews} reviews</p>
                     </div>
