@@ -13,7 +13,10 @@
 
 .featured-container{
 	text-align: center;
-	width: 60%;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+	width: 89%;
 	border-right: 1px solid black;
 	border-left: 1px solid black;
 	margin: 0 auto;
@@ -21,8 +24,12 @@
 	cursor: pointer;
 }
 
-.featured-pic img{
-	width: 90%;
+.featured-pic{
+	border-radius: 3%;
+	width: 45vh;
+	height: 40vh;
+	background-size: cover;
+  	background-position: 50% 50%;
 }
 
 .feature-rating{
@@ -37,4 +44,11 @@
 
 .feature-info p:last-child{
 	padding-bottom: 2%;
+}
+
+/* tablet and higher */
+@media only screen and (min-width: 768px){
+	.featured-container{
+		width: 60%;
+	}
 }

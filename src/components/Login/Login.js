@@ -1,18 +1,40 @@
 import React from 'react';
+import authApi from '../../api-services/auth-api';
+import TokenService from '../../services/token-service';
 
 class Login extends React.Component{
+    static defaultProps = {
+        onLoginSuccess: () => { }
+    }
+
+    handleSubmit = e =>{
+        e.preventDefault();
+        const {username, password} = e.target;
+        console.log('logged in');
+        authApi.postLogin({
+            user_name: username.value,
+            password: password.value,
+        })
+        .then(res=>{
+            username.value = ''
+            password.value = ''
+            // save token
+            TokenService.saveAuthToken(res.authToken)
+            this.props.onLoginSuccess()
+        })
+    }
 
     render(){
         return(
             <div>
                 <header>Login</header>
-                <form className="login-form gen-form">
+                <form className="login-form gen-form" onSubmit={this.handleSubmit}>
 
                     <label htmlFor="username">Username:</label>
-                    <input id="username" type="text" name="username" required/>
+                    <input type="text" name="username" required/>
 
                     <label htmlFor="password">Password</label>
-                    <input id="password" type="password" name="password" required/>
+                    <input type="password" name="password" required/>
 
                     <button type="submit">Login</button>
 		        </form>
