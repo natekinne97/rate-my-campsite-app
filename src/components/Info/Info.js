@@ -23,7 +23,7 @@ class Info extends React.Component{
         // get campsite info
         apiService.getCampsiteById(infoId)
             .then(info=>{
-                console.log(info, 'info');
+                
                 this.context.setInfo(info);
             })
             .catch(this.context.setError);
@@ -50,10 +50,6 @@ class Info extends React.Component{
     renderInfo(){
         const { siteInfo=[] } = this.context;
 
-        Object.keys(siteInfo).forEach(field => {
-            console.log(field);
-        });
-       
         return   <div key={siteInfo.id} className="full-view">
                 <header>{siteInfo.name}</header>
                 <div className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}></div>
@@ -62,7 +58,9 @@ class Info extends React.Component{
                 <div className="feature-rating">
                     {this.renderTents(siteInfo.avg_reviews)}
                 </div>
-                <p>{parseFloat(siteInfo.avg_reviews).toFixed(1)}/{siteInfo.number_of_reviews} Reviews</p>
+            {siteInfo.avg_reviews
+                ? <p> {parseFloat(siteInfo.Infoavg_reviews).toFixed(1)}Tents </p>
+                : <p>Not yet Reviewed.</p>}
                 <p>{siteInfo.description}</p>
             </div>
         
@@ -84,9 +82,10 @@ class Info extends React.Component{
 
     renderReviews(){
         const { reviews=[] } = this.context;
-       
-        if(!reviews){
+        console.log(reviews);
+        if(reviews.length === 0){
             console.log('no reviews here');
+            return (<p>Not yet Reviewed.</p>)
         }
         return reviews.map(rev=>
             <div key={rev.id} className="reviews">

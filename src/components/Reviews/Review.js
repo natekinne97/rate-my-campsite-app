@@ -1,7 +1,7 @@
 import React from "react";
 import campsiteContext from '../../context/context';
 import apiService from '../../api-services/api-services';
-import TokenServices from '../../services/token-service';
+
 import './Review.css'
 
 // the purpose of this class is to handle submitted reviews
@@ -16,15 +16,22 @@ class Review extends React.Component{
 
         const {siteInfo} = this.context;
         const { rev, rating} = e.target;
-
-        console.log(Number(this.context.useID), 'user id');
-
-        apiService.postReview(rev.value, Number(rating.value), Number(siteInfo.id), Number(this.context.useID))
+        
+        apiService.postReview(
+            rev.value,
+            rating.value,
+            +siteInfo.id
+        )
             .then(this.context.addReview)
             .then(() => {
                 rev.value = ''
             })
-            .catch(this.context.setError)
+            .catch(error=>{
+                if (error === 'SyntaxError: Unexpected end of JSON input at api-services.js:82'){
+                    console.log('useless error still works');
+                }
+               this.context.setError(error);
+            })
     }
 
     render(){

@@ -1,12 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import TokenService from '../../services/token-service'
+import IdleService from '../../services/idle-services';
 import './Menu.css';
 
 class Menu extends React.Component{
     // delet the auth token when logout is clicked
     handleLogoutClick = () => {
         TokenService.clearAuthToken()
+        /* when logging out, clear the callbacks to the refresh api and idle auto logout */
+        TokenService.clearCallbackBeforeExpiry()
+        IdleService.unRegisterIdleResets()
     }
 
     // renders logout link and post campsite when user is logged in

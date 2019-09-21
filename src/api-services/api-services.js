@@ -47,6 +47,7 @@ const apiService = {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
                 img, 
@@ -77,8 +78,8 @@ const apiService = {
             )
     },
     // make a new review
-    postReview(text, rating, campsite_id, user_id) {
-        console.log(text, 'text', rating, 'rating', campsite_id, 'id')
+    postReview(text, rating, campsite_id) {
+        
         return fetch(`${config.API_ENDPOINT}/reviews/`, {
             method: 'POST',
             headers: {
@@ -86,19 +87,21 @@ const apiService = {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
-                campsite_id,
-                rating,
                 text,
-                user_id
+                rating,
+                campsite_id
             }),
         })
             .then(res =>
                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
-            )
+            ).catch(err=>{
+                console.log(err, 'error');
+                return null;
+            })
 
-    }
+    },
 
 }
 
