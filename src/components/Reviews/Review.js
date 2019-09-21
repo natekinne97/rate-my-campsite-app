@@ -1,6 +1,7 @@
 import React from "react";
 import campsiteContext from '../../context/context';
 import apiService from '../../api-services/api-services';
+import TokenServices from '../../services/token-service';
 import './Review.css'
 
 // the purpose of this class is to handle submitted reviews
@@ -16,7 +17,9 @@ class Review extends React.Component{
         const {siteInfo} = this.context;
         const { rev, rating} = e.target;
 
-        apiService.postReview(rev.value, Number(rating.value), Number(siteInfo[0].id))
+        console.log(Number(this.context.useID), 'user id');
+
+        apiService.postReview(rev.value, Number(rating.value), Number(siteInfo.id), Number(this.context.useID))
             .then(this.context.addReview)
             .then(() => {
                 rev.value = ''
@@ -25,6 +28,7 @@ class Review extends React.Component{
     }
 
     render(){
+        
         return(
             
             <form className="gen-form " onSubmit={this.handleSubmit}>

@@ -23,8 +23,8 @@ class Reset extends React.Component{
 
     // get the username first display it on the screen and use it to change the pass
     componentDidMount(){
+        console.log('calling rerender');
         const { token } = this.props.match.params
-        console.log(token);
         authApi.getUsername(token)
             .then(user=>{
                 console.log(user, 'user');
@@ -61,6 +61,7 @@ class Reset extends React.Component{
     handleSubmit = e =>{
         e.preventDefault();
         const {password, repeat_pass} = e.target;
+        console.log(this.state.user_name, 'user name is');
         authApi.updatePassword( this.state.user_name ,repeat_pass.value)
             .then(res=>{
                 if (res === 'update succesful'){
@@ -82,9 +83,9 @@ class Reset extends React.Component{
     renderResetPasswordPage(){
         return(
            
-                <form className="gen-form">
+                <form className="gen-form" onSubmit={this.handleSubmit}>
                     {this.state.passwordError
-                    ? <p className="red">{this.state.error}</p>
+                    ? <p className="red">{this.state.passwordError}</p>
                     : null}
                     <label>New password</label>
                     <input id="password_reset" type="password" name="password" required/>
@@ -103,8 +104,8 @@ class Reset extends React.Component{
             <div className="resest-password">
                 <header><h1>{this.state.user_name}</h1></header>
                 {this.state.error
-                ? null
-                : this.renderResetPasswordPage}
+                ? <p>{this.state.error}</p>
+                : this.renderResetPasswordPage()}
             
             </div>
         )

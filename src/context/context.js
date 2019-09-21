@@ -6,12 +6,14 @@ const campsiteContext = new React.createContext({
     campsites: [],
     siteInfo: [],
     reviews: [],
+    userId: 0,
     // error checking
     error: null,
     // set data
     setInfo: ()=>{},
     setReview: ()=>{},
     setCampsites: ()=>{},
+    setUser: ()=>{},
     // insert data
     addReview: ()=>{},
     addCampsite: ()=>{},
@@ -28,6 +30,7 @@ export class CampsiteProvider extends Component{
         campsites: [],
         siteInfo: [],
         reviews: [],
+        userId: null,
         error: null
     }
 
@@ -47,6 +50,14 @@ export class CampsiteProvider extends Component{
         this.setState({
             reviews
         })
+    }
+    // set user id for review making
+    setUser = userId =>{
+        console.log('setting user', userId);
+        this.setState({
+            userId: userId
+        })
+        console.log(this.state.userId, 'user id that was set');
     }
     // but doesnt always refresh correctly
     // add review to the state
@@ -80,6 +91,7 @@ export class CampsiteProvider extends Component{
             campsites: this.state.campsites,
             siteInfo: this.state.siteInfo,
             reviews: this.state.reviews,
+            userId: this.state.userId,
             // insert new data
             addReview: this.addReview,
             addCampsite: this.addCampsite,
@@ -89,6 +101,7 @@ export class CampsiteProvider extends Component{
             setCampsites: this.setCampsites,
             setInfo: this.setInfo,
             setReview: this.setReview,
+            setUser: this.setUser,
             // error handling
             setError: this.setError,
             // clear

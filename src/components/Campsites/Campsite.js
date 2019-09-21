@@ -43,9 +43,11 @@ class Campsite extends React.Component{
                         <div className="img-post" style={{ backgroundImage: `url(${site.img})` }}></div>
                         <p>{site.name}</p>
                     {this.renderTents(site.avg_reviews)}
-                    <p> {parseFloat(site.avg_reviews).toFixed(1)}Tents  
+                    {site.avg_reviews
+                        ? <p> {parseFloat(site.avg_reviews).toFixed(1)}Tents </p>
+                        : <p>0  Tents</p>}
+                    
                    
-                   </p>
                     <p>
                         {site.number_of_reviews}Reviews
                     </p>

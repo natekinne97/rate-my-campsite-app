@@ -13,16 +13,18 @@ class ForgotPassword extends React.Component{
     handleSubmit =  e =>  {
         e.preventDefault();
         const {email} = e.target;
-        email.value = ''
+        
         this.setState({
             wait: 'May take a moment',
             error: null
         })
+        // sending request for email
         AuthApiService.emailReset({email: email.value})
             .then(res=>{
                 this.setState({
                     sent: true
                 })
+                email.value = ''
             }).catch(error=>{
                 this.setState({
                     sent: false,

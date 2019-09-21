@@ -19,21 +19,27 @@ class Info extends React.Component{
 
     componentDidMount(){
         const { infoId } = this.props.match.params
-        console.log(typeof infoId);
+        
         // get campsite info
         apiService.getCampsiteById(infoId)
-            .then(this.context.setInfo)
+            .then(info=>{
+                console.log(info, 'info');
+                this.context.setInfo(info);
+            })
             .catch(this.context.setError);
         
         // get all reviews
         apiService.getReviewsForSite(infoId)
-            .then(this.context.setReview)
+            .then(rev=>{
+                this.context.setReview(rev);
+            })
             .catch(this.setError);
            
     }
     // render all the tents for the avg review
     renderTents = num => {
         let arr = [];
+
         for (let i = 0; i < num; i++) {
             arr.push(<FontAwesomeIcon key={i} icon={faCampground} />);
         }
@@ -43,20 +49,23 @@ class Info extends React.Component{
 
     renderInfo(){
         const { siteInfo=[] } = this.context;
-        
-        return siteInfo.map(info => 
-            <div key={info.id} className="full-view">
-                <header>{info.name}</header>
-                <div className="info-img" style={{ backgroundImage: `url(${info.img})` }}></div>
-                <p className="para">{info.park}</p>
-                <p className="para">{info.city}, {info.state}</p>
+
+        Object.keys(siteInfo).forEach(field => {
+            console.log(field);
+        });
+       
+        return   <div key={siteInfo.id} className="full-view">
+                <header>{siteInfo.name}</header>
+                <div className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}></div>
+                <p className="para">{siteInfo.park}</p>
+                <p className="para">{siteInfo.city}, {siteInfo.state}</p>
                 <div className="feature-rating">
-                    {this.renderTents(info.avg_reviews)}
+                    {this.renderTents(siteInfo.avg_reviews)}
                 </div>
-                <p>{parseFloat(info.avg_reviews).toFixed(1)}/{info.number_of_reviews} Reviews</p>
-                <p>{info.description}</p>
+                <p>{parseFloat(siteInfo.avg_reviews).toFixed(1)}/{siteInfo.number_of_reviews} Reviews</p>
+                <p>{siteInfo.description}</p>
             </div>
-        ) 
+        
     }
 
     // send user to login to write review if not logged in
@@ -75,17 +84,21 @@ class Info extends React.Component{
 
     renderReviews(){
         const { reviews=[] } = this.context;
+       
+        if(!reviews){
+            console.log('no reviews here');
+        }
         return reviews.map(rev=>
             <div key={rev.id} className="reviews">
                 {/* reviewer info */}
                 <div className="review-info">
                     <div className="review-meta">
-                        <p>author</p>
+                        <p>{rev.author}</p>
                         <p>{rev.date_created}</p>
-                        {console.log(rev.date_created, 'date created')}
+                      
                     </div>
                     <div className="rating">
-                        <p>Rating: {rev.rating}</p>
+                        {this.renderTents(rev.rating)}
                     </div>
                 </div>
 
@@ -101,18 +114,24 @@ class Info extends React.Component{
 
     render(){
         
-        
+        // this.renderInfo()
         return(
             <div className="info">
                 
                 {/* Main Content */}
-                {this.renderInfo()}
+                {this.context.error
+                ? <p className="red">An error has occured. please try again later.</p>
+                    : this.renderInfo()}
+                
 
                {/* reviews */}
                 <h3>Reviews</h3>
                 
 		    <div className="reviews-container">
-                    {this.renderReviews()}
+                    {this.context.error
+                        ? <p className="red">An error has occured. please try again later.</p>
+                        : this.renderReviews()}
+                    
             </div>
                 <div className="write-review-container">
                     <h3>Write a review</h3>

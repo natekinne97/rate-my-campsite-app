@@ -1,4 +1,5 @@
 import  config from '../config';
+import TokenService from '../services/token-service'
 
 const apiService = {
     getAllCampsites(){
@@ -76,17 +77,19 @@ const apiService = {
             )
     },
     // make a new review
-    postReview(text, rating, campsite_id) {
+    postReview(text, rating, campsite_id, user_id) {
         console.log(text, 'text', rating, 'rating', campsite_id, 'id')
         return fetch(`${config.API_ENDPOINT}/reviews/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
                 campsite_id,
                 rating,
                 text,
+                user_id
             }),
         })
             .then(res =>
