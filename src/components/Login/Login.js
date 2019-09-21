@@ -1,13 +1,11 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
 import './Login.css';
-import campsiteContext from '../../context/context';
 import authApi from '../../api-services/auth-api';
 import TokenService from '../../services/token-service';
 
 class Login extends React.Component{
-    static contextType = campsiteContext
-
+   
     static defaultProps = {
         onLoginSuccess: () => { }
     }
@@ -27,10 +25,7 @@ class Login extends React.Component{
         .then(res=>{
             username.value = ''
             password.value = ''
-            console.log(res.user_id);
-            // get user id for making reviews
-            this.context.setUser(res.user_id);
-            console.log(this.context.setUser(res.user_id), 'user id from context');
+           
             // save token
             TokenService.saveAuthToken(res.authToken)
             this.props.onLoginSuccess()

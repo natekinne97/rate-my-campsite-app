@@ -13,7 +13,7 @@ class ForgotPassword extends React.Component{
     handleSubmit =  e =>  {
         e.preventDefault();
         const {email} = e.target;
-        
+        console.log(email.value);
         this.setState({
             wait: 'May take a moment',
             error: null
@@ -26,6 +26,7 @@ class ForgotPassword extends React.Component{
                 })
                 email.value = ''
             }).catch(error=>{
+                console.log(error, 'error');
                 this.setState({
                     sent: false,
                     error: error
@@ -44,6 +45,10 @@ class ForgotPassword extends React.Component{
                 {/* display feedback for long wait */}
                 {this.state.wait
                 ? <p>{this.state.wait}</p>
+                : null}
+
+                {this.state.error
+                ? <p className="red">error occured</p>
                 : null}
 
                 <form onSubmit={this.handleSubmit}>

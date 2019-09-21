@@ -62,7 +62,10 @@ const apiService = {
                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
-            )
+        ).catch(err => {
+            console.log(err, 'error');
+            return null;
+        })
     },
     // gets the featured site for display
     getFeaturedSite() {

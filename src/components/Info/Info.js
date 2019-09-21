@@ -82,7 +82,6 @@ class Info extends React.Component{
 
     renderReviews(){
         const { reviews=[] } = this.context;
-        console.log(reviews);
         if(reviews.length === 0){
             console.log('no reviews here');
             return (<p>Not yet Reviewed.</p>)

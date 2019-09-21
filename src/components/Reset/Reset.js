@@ -23,11 +23,11 @@ class Reset extends React.Component{
 
     // get the username first display it on the screen and use it to change the pass
     componentDidMount(){
-        console.log('calling rerender');
+       
         const { token } = this.props.match.params
         authApi.getUsername(token)
             .then(user=>{
-                console.log(user, 'user');
+                
                 if (user === 'password reset link is invalid or has expired'){
                     this.setState({
                         error: user
@@ -61,7 +61,6 @@ class Reset extends React.Component{
     handleSubmit = e =>{
         e.preventDefault();
         const {password, repeat_pass} = e.target;
-        console.log(this.state.user_name, 'user name is');
         authApi.updatePassword( this.state.user_name ,repeat_pass.value)
             .then(res=>{
                 if (res === 'update succesful'){

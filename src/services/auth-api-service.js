@@ -31,7 +31,14 @@ const AuthApiService = {
                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
-            )
+        ).then(res =>
+            (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        ).catch(err => {
+            console.log(err, 'error');
+            return null;
+        })
     },
     // reset password
     emailReset(email) {

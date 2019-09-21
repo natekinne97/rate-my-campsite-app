@@ -1,6 +1,5 @@
 import React from 'react';
 import authApi from '../../api-services/auth-api';
-import TokenService from '../../services/token-service';
 
 // future error checking will include username and password
 class CreateAccount extends React.Component {
@@ -53,7 +52,6 @@ class CreateAccount extends React.Component {
                 first_name.value = '';
                 last_name.value = '';
                 // redirect to home page
-                TokenService.saveAuthToken(res.authToken)
                 this.props.onCreateSuccess();
             }).catch(error=>{
                 this.setState({error});
@@ -67,7 +65,7 @@ class CreateAccount extends React.Component {
                 <header>Create Account</header>
                 <form className="account-form gen-form" onSubmit={this.handleSubmit}>
                     {this.state.error
-                    ? <p>{this.state.error}</p>
+                    ? <p>Error Occured.</p>
                     : null}
 
                     <label htmlFor="username">Username</label>

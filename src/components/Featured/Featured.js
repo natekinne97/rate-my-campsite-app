@@ -36,7 +36,7 @@ class Featured extends React.Component {
         // check if there is data for campsite after the 4 times its called for
         // some reason
         if(!campsites[0]){
-            console.log('undefined')
+            return (<p className="red">Error occured. Please try again later</p>);
         }else{
             // make an object out of the data because it runs twices
             // anc comes back with unusable data when divided differently
@@ -47,6 +47,8 @@ class Featured extends React.Component {
                 "number_of_reviews": campsites[0].number_of_reviews,
                 "avg_reviews": parseFloat(campsites[0].avg_reviews).toFixed(1)
             }
+            
+            // print tents for background
             let tents = []
             for (let i = 0; i < arr.avg_reviews - 1; i++) {
                 tents[i] = <FontAwesomeIcon key={i} icon={faCampground} />;
