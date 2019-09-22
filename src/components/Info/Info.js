@@ -58,8 +58,8 @@ class Info extends React.Component{
                 <div className="feature-rating">
                     {this.renderTents(siteInfo.avg_reviews)}
                 </div>
-            {siteInfo.avg_reviews
-                ? <p> {parseFloat(siteInfo.Infoavg_reviews).toFixed(1)}Tents </p>
+            {parseFloat(siteInfo.Infoavg_reviews).toFixed(1)
+                ? <p> {parseFloat(siteInfo.Infoavg_reviews).toFixed(1)} Tents </p>
                 : <p>Not yet Reviewed.</p>}
                 <p>{siteInfo.description}</p>
             </div>

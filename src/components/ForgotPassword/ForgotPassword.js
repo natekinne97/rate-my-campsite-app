@@ -22,7 +22,8 @@ class ForgotPassword extends React.Component{
         AuthApiService.emailReset({email: email.value})
             .then(res=>{
                 this.setState({
-                    sent: true
+                    sent: true,
+                    wait: ''
                 })
                 email.value = ''
             }).catch(error=>{

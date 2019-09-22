@@ -54,6 +54,7 @@ class CreateAccount extends React.Component {
                 // redirect to home page
                 this.props.onCreateSuccess();
             }).catch(error=>{
+                console.log(error);
                 this.setState({error});
             })
 
@@ -65,7 +66,7 @@ class CreateAccount extends React.Component {
                 <header>Create Account</header>
                 <form className="account-form gen-form" onSubmit={this.handleSubmit}>
                     {this.state.error
-                    ? <p>Error Occured.</p>
+                        ? <p>{this.state.error.error}</p>
                     : null}
 
                     <label htmlFor="username">Username</label>

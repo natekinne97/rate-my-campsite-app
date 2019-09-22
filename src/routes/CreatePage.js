@@ -12,7 +12,7 @@ export default class LoginPage extends Component {
 
     handleCreateSuccess = () => {
         const { history } = this.props
-        history.push(localStorage.lastUrl || '/');
+        history.push('/');
     }
 
     render() {
