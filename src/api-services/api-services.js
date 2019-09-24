@@ -29,7 +29,6 @@ const apiService = {
     },
     // get reviews for clicked on campsite
     getReviewsForSite(id){
-        console.log('actually getting called')
         return fetch(`${config.API_ENDPOINT}/campsites/${id}/reviews`, {
             headers: {
 

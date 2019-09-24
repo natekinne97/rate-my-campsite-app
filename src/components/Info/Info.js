@@ -58,9 +58,10 @@ class Info extends React.Component{
                 <div className="feature-rating">
                     {this.renderTents(siteInfo.avg_reviews)}
                 </div>
-            {parseFloat(siteInfo.Infoavg_reviews).toFixed(1)
-                ? <p> {parseFloat(siteInfo.Infoavg_reviews).toFixed(1)} Tents </p>
-                : <p>Not yet Reviewed.</p>}
+            {siteInfo.avg_reviews
+                ? <p> {parseFloat(siteInfo.avg_reviews).toFixed(1)} Tents </p>
+                : <p>Not yet reviewed.</p>}
+
                 <p>{siteInfo.description}</p>
             </div>
         
@@ -83,7 +84,6 @@ class Info extends React.Component{
     renderReviews(){
         const { reviews=[] } = this.context;
         if(reviews.length === 0){
-            console.log('no reviews here');
             return (<p>Not yet Reviewed.</p>)
         }
         return reviews.map(rev=>
