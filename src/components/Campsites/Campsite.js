@@ -26,8 +26,13 @@ class Campsite extends React.Component{
     // render all the tents for the avg review
     renderTents = num => {
         let arr = [];
-        for (let i = 0; i < num ; i++) {
-            arr.push(<FontAwesomeIcon key={i} icon={faCampground} />);
+        for (let i = 0; i < 5 ; i++) {
+            if(i<num){
+                arr.push(<FontAwesomeIcon className="tent" key={i} icon={faCampground} />);
+            }else{
+                arr.push(<FontAwesomeIcon className="tent-rate tent" key={i} icon={faCampground} />);
+            }
+            
         }
         return arr;
     }
@@ -41,15 +46,16 @@ class Campsite extends React.Component{
                 <Link key={site.id} to={`/info/${site.id}`}>
                     <div className="post">
                         <div className="img-post" style={{ backgroundImage: `url(${site.img})` }}></div>
-                        <p>{site.name}</p>
-                    {this.renderTents(site.avg_reviews)}
+                    <p className="paragraphs">{site.name}</p>
+                    
+
                     {site.avg_reviews
-                        ? <p> {parseFloat(site.avg_reviews).toFixed(1)}Tents </p>
-                        : <p>0  Tents</p>}
+                        ? <p className="paragraphs"> {this.renderTents(site.avg_reviews)} </p>
+                        : <p className="paragraphs">No reviews.</p>}
                     
                    
-                    <p>
-                        {site.number_of_reviews}Reviews
+                    <p className="paragraphs">
+                        {site.number_of_reviews} Reviews
                     </p>
                     </div>
                 </Link>

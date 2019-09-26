@@ -2,49 +2,88 @@
 .info{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 }
 
-.full-view{
-	width: 90%;
-	border: 1px solid black;
-	text-align: center;
+/* info img */
+.info-img{
+	margin-top: 1%;
+	width:	100%;
+    height: 81vh;
+	background-size: cover;
+	background-position: 50% 50%;
 	display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
 }
 
+.info-info{
+	width: 54%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+}
 
-.info-img{
-	margin-top: 1%;
-	width: 37vh;
-    height: 42vh;
-	background-size: cover;
-  	background-position: 50% 50%;
+.info-info p:first-child{
+	font-weight: 800;
 }
 
 .para{
 	margin: 1%;
 }
 
-/* all reviews */
+/* 
+
+all reviews
+
+
+*/
 .reviews-container{
 	width: 90%;
-    border: 1px solid black;
-    padding: 3%;
+	padding: 3%;
+	width: 90%;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 0 auto;
+	margin-top: 2%;
 }
 
-.reviews-container h3{
-	border-right: 1px solid black;
-	border-left: 1px solid black;
-	border-top: 1px solid black;
-	margin: 1% 1% 0 1%;
+/* container surrounding indiviual review */
+.reviews{
+	background:	#656565;
+	margin-bottom: 3%;
+	width: 25%;
+	text-align: center;
+	margin: 1%;
+	margin-bottom: 8%;
+	height: auto;
+	width: 39vh;
+	
+}
+
+/* all the tents */
+.rev-tent{
+	font-size: 32px;
+	color: #FDAF3E;
+	margin-left: 3px;
+	padding-top: 2%;
+}
+
+.review-des{
+	font-size: 27px;
+	margin-bottom: 1px;
+	color: #F6EEE5;
 }
 
 /* info or timestamp and writer */
 .review-meta{
-    font-size: 10px;
+	font-size: 10px;
+	display: flex;
+	color: #F6EEE5;
 }
 /* the container for the  */
 .review-info{
@@ -54,14 +93,17 @@
 }
 
 .rating{
-    text-align: center;
+	display: block;
+	margin: 0 auto;
 }
 
 /* tablet and higher */
 @media only screen and (min-width: 768px){
-	.info-img{
+	/* .info-img{
 		width: 59vh;
     	height: 47vh;
-
+	} */
+	.info-info{
+		width: 30%;
 	}
 }

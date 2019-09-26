@@ -39,30 +39,37 @@ class Info extends React.Component{
     // render all the tents for the avg review
     renderTents = num => {
         let arr = [];
+        for (let i = 0; i < 5; i++) {
+            if (i < num) {
+                arr.push(<FontAwesomeIcon className="tent rev-tent" key={i} icon={faCampground} />);
+            } else {
+                arr.push(<FontAwesomeIcon className="tent-rate tent rev-tent" key={i} icon={faCampground} />);
+            }
 
-        for (let i = 0; i < num; i++) {
-            arr.push(<FontAwesomeIcon key={i} icon={faCampground} />);
         }
         return arr;
-    } 
+    }
+
 
 
     renderInfo(){
         const { siteInfo=[] } = this.context;
 
-        return   <div key={siteInfo.id} className="full-view">
-                <header>{siteInfo.name}</header>
-                <div className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}></div>
-                <p className="para">{siteInfo.park}</p>
-                <p className="para">{siteInfo.city}, {siteInfo.state}</p>
-                <div className="feature-rating">
-                    {this.renderTents(siteInfo.avg_reviews)}
+        return <div key={siteInfo.id} className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}>
+               
+                {/* <div className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}></div> */}
+                
+                <div className="info-info">
+                    <header>{siteInfo.name}</header>
+                    <p className="para">{siteInfo.park}</p>
+                    <p className="para">{siteInfo.city}, {siteInfo.state}</p>
+                    <div className="feature-rating">
+                        {this.renderTents(siteInfo.avg_reviews)}
+                    </div>
+                
+                    <p>{siteInfo.description}</p>
                 </div>
-            {siteInfo.avg_reviews
-                ? <p> {parseFloat(siteInfo.avg_reviews).toFixed(1)} Tents </p>
-                : <p>Not yet reviewed.</p>}
-
-                <p>{siteInfo.description}</p>
+                
             </div>
         
     }
@@ -90,21 +97,21 @@ class Info extends React.Component{
             <div key={rev.id} className="reviews">
                 {/* reviewer info */}
                 <div className="review-info">
-                    <div className="review-meta">
-                        <p>{rev.author}</p>
-                        <p>{rev.date_created}</p>
-                      
-                    </div>
                     <div className="rating">
                         {this.renderTents(rev.rating)}
                     </div>
                 </div>
-
-
                 <div className="review-des">
-                    <p>{rev.text}</p>
+                    <p>"{rev.text}"</p>
                 </div>
-                <hr />
+
+                <div className="review-meta">
+                    <p>- {rev.author} &#8194;</p>
+                    <p> {rev.date_created}</p>
+
+                </div> 
+
+               
             </div>
            
         )

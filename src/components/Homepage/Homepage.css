@@ -1,0 +1,14 @@
+.landing-page{
+    background: url('https://i.imgur.com/K8By51k.jpg');
+    width: 100%;
+    text-align: center;
+    width: 100%;
+	height: 90vh;
+	background-size: cover;
+    background-position: 50% 50%;
+    color: white;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

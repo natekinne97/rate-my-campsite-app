@@ -27,44 +27,74 @@ class Featured extends React.Component {
     }
 
 
-    renderFeatured(){
+    // render all the tents for the avg review
+    renderTents = num => {
+        let arr = [];
+        for (let i = 0; i < 5; i++) {
+            if (i < num) {
+                arr.push(<FontAwesomeIcon className="tent" key={i} icon={faCampground} />);
+            } else {
+                arr.push(<FontAwesomeIcon className="tent-rate tent" key={i} icon={faCampground} />);
+            }
+
+        }
+        return arr;
+    }
+
+
+    renderFeatured(num){
         // get campsite data
         const {campsites=[]} = this.context;
-       
-        // id, img, name, number_of_reviews, avg_reviews
+        let numOrient = false;
+        // for code reuseability check the number and change the sides of the pic
+        if(num === 0){
+            numOrient = false;
+        }else{
+            numOrient = true;
+        }
+        
        
         // check if there is data for campsite after the 4 times its called for
         // some reason
-        if(!campsites[0]){
+        if(!campsites[num]){
             return (<p className="red">Error occured. Please try again later</p>);
         }else{
             // make an object out of the data because it runs twices
             // anc comes back with unusable data when divided differently
             let arr = {
-                "id":  campsites[0].id,
-                "name": campsites[0].name,
-                "img":campsites[0].img,
-                "number_of_reviews": campsites[0].number_of_reviews,
-                "avg_reviews": parseFloat(campsites[0].avg_reviews).toFixed(1)
+                "id":  campsites[num].id,
+                "name": campsites[num].name,
+                "img":campsites[num].img,
+                "number_of_reviews": campsites[num].number_of_reviews,
+                "avg_reviews": parseFloat(campsites[num].avg_reviews).toFixed(1)
             }
             
-            // print tents for background
-            let tents = []
-            for (let i = 0; i < arr.avg_reviews - 1; i++) {
-                tents[i] = <FontAwesomeIcon key={i} icon={faCampground} />;
-            }
+           
             // return the data
             return <Link to={`/info/${arr.id}`}>
                 <div className="featured-container">
-                    <div className="featured-pic" style={{ backgroundImage: `url(${arr.img})` }}></div>
-                    {/* featured info */}
+                    
+                    
+                    {numOrient
+                    ? null
+                        : <div className="featured-pic" style={{ backgroundImage: `url(${arr.img})` }}></div>
+                    }
+
                     <div className="feature-info">
+
                         <h3>{arr.name}</h3>
                         <div className="feature-rating">
-                            {tents}
+                            {this.renderTents(arr.avg_reviews)}
                         </div>
                         <p>{arr.avg_reviews} Tents {arr.number_of_reviews} reviews</p>
+                        {/* not a button but a suggestion for action. see more info */}
+                        <div className="info-button"><p>More info</p></div>
                     </div>
+
+                    {numOrient
+                        ? <div className="featured-pic" style={{ backgroundImage: `url(${arr.img})` }}></div>
+                        : null
+                    }
                 </div>
             </Link>
 
@@ -80,9 +110,9 @@ class Featured extends React.Component {
         return(
             
             <div className="featured-shell">
-                <h3>Featured Campsite</h3>
-               
-                {this.renderFeatured()}
+
+                {this.renderFeatured(0)}
+                {this.renderFeatured(1)}
 
             </div>
         );
