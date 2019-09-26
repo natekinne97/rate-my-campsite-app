@@ -12,6 +12,7 @@ import CreatePage from '../../routes/CreatePage';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import Reset from '../Reset/Reset';
 import Info from '../Info/Info';
+import Footer from '../Footer/Footer';
 // private route
 import PrivateRoute from '../../routes/private';
 
@@ -156,6 +157,9 @@ class App extends React.Component{
             component={Reset}
             />
           </Switch>
+          <footer>
+            <Footer/>
+          </footer>
         </main>
       </div>
     );

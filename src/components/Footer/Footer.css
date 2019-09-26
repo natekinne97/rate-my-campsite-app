@@ -1,0 +1,25 @@
+.footer{
+    border-top: 1px solid black;
+    margin-top: 1%;
+    background: url('https://i.imgur.com/nD2QWSx.jpg');
+    width: 100%;
+    height: 17vh;
+	background-size: cover;
+	background-position: 50% 50%;
+    /* background: blue; */
+}
+
+
+/* footer list */
+.footer ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-around;
+    color: black;
+}
+
+.footer a{
+    color: white;
+    font-weight: 900;
+}

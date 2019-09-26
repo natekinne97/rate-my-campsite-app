@@ -1,5 +1,6 @@
 import React from 'react';
 import authApi from '../../api-services/auth-api';
+import './CreateAccount.css';
 
 // future error checking will include username and password
 class CreateAccount extends React.Component {
@@ -62,7 +63,7 @@ class CreateAccount extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="create-account">
                 <header>Create Account</header>
                 <form className="account-form gen-form" onSubmit={this.handleSubmit}>
                     {this.state.error
@@ -91,9 +92,7 @@ class CreateAccount extends React.Component {
                     <label htmlFor="repeat-password">Repeat password</label>
                     <input id="repeat-password" type="password" name="repeat_password" onChange={this.repeatOnChange} required/>
 
-                    {this.state.error
-                    ? null
-                    : <button type="submit">Sign Up</button>}
+                    <button type="submit">Sign Up</button>
 
 	        	</form>
             </div>

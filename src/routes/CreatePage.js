@@ -10,9 +10,10 @@ export default class LoginPage extends Component {
         },
     }
 
-    handleCreateSuccess = () => {
+    handleLoginSuccess = () => {
+        console.log('pushing for redirect')
         const { history } = this.props
-        history.push('/');
+        history.push( '/login');
     }
 
     render() {
