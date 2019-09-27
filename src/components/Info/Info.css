@@ -18,7 +18,7 @@
 }
 
 .info-info{
-	width: 54%;
+	width: 65%;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -67,10 +67,15 @@ all reviews
 
 /* all the tents */
 .rev-tent{
+	padding-top: 1%;
 	font-size: 32px;
 	color: #FDAF3E;
 	margin-left: 3px;
 	padding-top: 2%;
+}
+
+.tent-less{
+	font-size: 32px;
 }
 
 .review-des{
@@ -87,12 +92,14 @@ all reviews
 }
 /* the container for the  */
 .review-info{
+	
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .rating{
+	padding-top: 4%;	
 	display: block;
 	margin: 0 auto;
 }

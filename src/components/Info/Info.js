@@ -43,7 +43,7 @@ class Info extends React.Component{
             if (i < num) {
                 arr.push(<FontAwesomeIcon className="tent rev-tent" key={i} icon={faCampground} />);
             } else {
-                arr.push(<FontAwesomeIcon className="tent-rate tent rev-tent" key={i} icon={faCampground} />);
+                arr.push(<FontAwesomeIcon className="tent-rate tent tent-less" key={i} icon={faCampground} />);
             }
 
         }
