@@ -9,3 +9,10 @@ Create an account and post the campsite with a picture of it and have the commun
 Live link to the site:
 https://build.nathankinne.now.sh/
 
+![ratemycampsiteHome](https://user-images.githubusercontent.com/12354132/65820851-6650a180-e21d-11e9-9dff-16c2c657c8de.png)
+
+
+![ratemycampsiteFeatured](https://user-images.githubusercontent.com/12354132/65820857-77011780-e21d-11e9-9692-75c4b3a90fd3.png)
+
+
+![ratemycampsiteInfo](https://user-images.githubusercontent.com/12354132/65820859-82ecd980-e21d-11e9-8384-2bbb4cd59d81.png)
