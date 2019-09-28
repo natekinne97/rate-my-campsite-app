@@ -12,6 +12,9 @@ class Homepage extends React.Component{
                 <h2>Show the world your great campsite discovories</h2>
                 <p>"A social media for campsites."</p>
                 <p>Post your favorite campsites and let the world review them.</p>
+                <p>Test user: c.bloggs</p>
+                <p>Test password: charzard</p>
+                <p>Login to post new campsites</p>
             </header>
         </div>);
     }
