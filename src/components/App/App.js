@@ -8,13 +8,90 @@ import Menu from '../Menu/Menu';
 import Homepage from '../Homepage/Homepage';
 import AddCampsite from '../AddCampsite/AddCampsite';
 import LoginPage from '../../routes/LoginPage'
-import CreateAccount from '../Create-Account/CreateAccount';
+import CreatePage from '../../routes/CreatePage';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import Reset from '../Reset/Reset';
 import Info from '../Info/Info';
+import Footer from '../Footer/Footer';
 // private route
 import PrivateRoute from '../../routes/private';
 
+// idle and refresh
+import TokenService from '../../services/token-service'
+import AuthApiService from '../../services/auth-api-service'
+import IdleService from '../../services/idle-services';
+
 class App extends React.Component{
   static contextType = campsiteContext;
+
+  state = { hasError: false }
+
+  static getDerivedStateFromError(error) {
+    console.error(error)
+    return { hasError: true }
+  }
+  componentDidMount() {
+    try{
+      /*
+      set the function (callback) to call when a user goes idle
+      we'll set this to logout a user when they're idle
+    */
+      IdleService.setIdleCallback(this.logoutFromIdle)
+
+      /* if a user is logged in */
+      if (TokenService.hasAuthToken()) {
+        /*
+          tell the idle service to register event listeners
+          the event listeners are fired when a user does something, e.g. move their mouse
+          if the user doesn't trigger one of these event listeners,
+            the idleCallback (logout) will be invoked
+        */
+        IdleService.regiserIdleTimerResets()
+
+        /*
+          Tell the token service to read the JWT, looking at the exp value
+          and queue a timeout just before the token expires
+        */
+        TokenService.queueCallbackBeforeExpiry(() => {
+          /* the timoue will call this callback just before the token expires */
+          AuthApiService.postRefreshToken()
+        })
+      }
+    }catch(error){
+      console.log(error, 'error occured');
+    }
+  }
+
+  componentWillUnmount() {
+    try{
+        /*
+        when the app unmounts,
+        stop the event listeners that auto logout (clear the token from storage)
+        */ 
+        IdleService.unRegisterIdleResets()
+        /*
+          and remove the refresh endpoint request
+        */
+        TokenService.clearCallbackBeforeExpiry()
+    }catch(error){
+      console.log(error, 'error logging out')
+    }
+
+  }
+
+  logoutFromIdle = () => {
+    /* remove the token from localStorage */
+    TokenService.clearAuthToken()
+    /* remove any queued calls to the refresh endpoint */
+    TokenService.clearCallbackBeforeExpiry()
+    /* remove the timeouts that auto logout when idle */
+    IdleService.unRegisterIdleResets()
+    /*
+      react won't know the token has been removed from local storage,
+      so we need to tell React to rerender
+    */
+    this.forceUpdate()
+  }
 
   
   // renders menu on specific fields
@@ -22,7 +99,7 @@ class App extends React.Component{
     
     return(
       <>
-        {['/', '/info/:infoId', '/post', '/login', '/signup'].map(path => (
+        {['/', '/info/:infoId', '/post', '/login', '/signup', '/reset/:token','/forgot-password'].map(path => (
           <Route 
             exact
             key={path}
@@ -35,6 +112,7 @@ class App extends React.Component{
   }
 
   render(){
+    localStorage.lastUrl = window.location.pathname;
     return(
       <div>
         <nav>
@@ -61,14 +139,27 @@ class App extends React.Component{
             {/* signup */}
             <Route
               path="/signup"
-              component={CreateAccount}
+              component={CreatePage}
             />
             {/* info/details page */}
             <Route
               path='/info/:infoId'
               component={Info}
             />
+            {/* forgot password */}
+            <Route
+              path='/forgot-password'
+              component={ForgotPassword}
+            />
+            {/* reset password */}
+            <Route
+            path='/reset/:token'
+            component={Reset}
+            />
           </Switch>
+          <footer>
+            <Footer/>
+          </footer>
         </main>
       </div>
     );

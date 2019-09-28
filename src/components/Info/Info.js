@@ -2,6 +2,8 @@ import React from "react";
 import Review from '../Reviews/Review';
 import {Link} from 'react-router-dom'
 import './Info.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCampground } from '@fortawesome/free-solid-svg-icons'
 import TokenService from '../../services/token-service';
 import campsiteContext from '../../context/context';
 import apiService from '../../api-services/api-services';
@@ -17,31 +19,59 @@ class Info extends React.Component{
 
     componentDidMount(){
         const { infoId } = this.props.match.params
-        console.log(typeof infoId);
+        
         // get campsite info
         apiService.getCampsiteById(infoId)
-            .then(this.context.setInfo)
+            .then(info=>{
+                
+                this.context.setInfo(info);
+            })
             .catch(this.context.setError);
         
         // get all reviews
         apiService.getReviewsForSite(infoId)
-            .then(this.context.setReview)
+            .then(rev=>{
+                this.context.setReview(rev);
+            })
             .catch(this.setError);
            
     }
+    // render all the tents for the avg review
+    renderTents = num => {
+        let arr = [];
+        for (let i = 0; i < 5; i++) {
+            if (i < num) {
+                arr.push(<FontAwesomeIcon className="tent rev-tent" key={i} icon={faCampground} />);
+            } else {
+                arr.push(<FontAwesomeIcon className="tent-rate tent tent-less" key={i} icon={faCampground} />);
+            }
+
+        }
+        return arr;
+    }
+
+
 
     renderInfo(){
         const { siteInfo=[] } = this.context;
-        
-        return siteInfo.map(info => 
-            <div key={info.id} className="full-view">
-                <header>{info.name}</header>
-                <div className="info-img" style={{ backgroundImage: `url(${info.img})` }}></div>
-                <p>Tent Rating</p>
-                <p>3.8/{info.number_of_reviews} Reviews</p>
-                <p>{info.description}</p>
+
+        return <div key={siteInfo.id} className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}>
+               
+                {/* <div className="info-img" style={{ backgroundImage: `url(${siteInfo.img})` }}></div> */}
+                
+                <div className="info-info">
+                    <header>{siteInfo.name}</header>
+                    <p className="para">{siteInfo.park}</p>
+                    <p className="para">{siteInfo.city}, {siteInfo.state}</p>
+                    <div className="feature-rating">
+                        {this.renderTents(siteInfo.avg_reviews)}
+                    </div>
+                
+                    <p>{siteInfo.description}</p>
+                </div>
+                
             </div>
-        ) 
+        
     }
 
     // send user to login to write review if not logged in
@@ -57,27 +87,31 @@ class Info extends React.Component{
         )
     }
 
+
     renderReviews(){
         const { reviews=[] } = this.context;
+        if(reviews.length === 0){
+            return (<p>Not yet Reviewed.</p>)
+        }
         return reviews.map(rev=>
             <div key={rev.id} className="reviews">
                 {/* reviewer info */}
                 <div className="review-info">
-                    <div className="review-meta">
-                        <p>author</p>
-                        <p>{rev.date_created}</p>
-                        {console.log(rev.date_created, 'date created')}
-                    </div>
                     <div className="rating">
-                        <p>Rating: {rev.rating}</p>
+                        {this.renderTents(rev.rating)}
                     </div>
                 </div>
-
-
                 <div className="review-des">
-                    <p>{rev.text}</p>
+                    <p>"{rev.text}"</p>
                 </div>
-                <hr />
+
+                <div className="review-meta">
+                    <p>- {rev.author} &#8194;</p>
+                    <p> {rev.date_created}</p>
+
+                </div> 
+
+               
             </div>
            
         )
@@ -85,18 +119,24 @@ class Info extends React.Component{
 
     render(){
         
-        
+        // this.renderInfo()
         return(
             <div className="info">
                 
                 {/* Main Content */}
-                {this.renderInfo()}
+                {this.context.error
+                ? <p className="red">An error has occured. please try again later.</p>
+                    : this.renderInfo()}
+                
 
                {/* reviews */}
                 <h3>Reviews</h3>
                 
 		    <div className="reviews-container">
-                    {this.renderReviews()}
+                    {this.context.error
+                        ? <p className="red">An error has occured. please try again later.</p>
+                        : this.renderReviews()}
+                    
             </div>
                 <div className="write-review-container">
                     <h3>Write a review</h3>

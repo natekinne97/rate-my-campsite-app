@@ -12,14 +12,22 @@
 	margin-top: 2%;
 }
 
+/* post the container holding the pic and info */
 .post{
-	border: 1px solid black;
+	
+	color: rgb(0, 0, 0, 0.7);
 	cursor: pointer;
 	text-align: center;
 	margin: 1%;
 	margin-bottom: 8%;
 	height: 52vh;
 	width: 39vh;
+	/* card style box shadow */
+	box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+.paragraphs{
+	padding: 7%;
 }
 
 .post p{
@@ -33,6 +41,15 @@
 	background-size: cover;
   	background-position: 50% 50%;
 }
+
+.tent-rate{
+	color: rgb(0, 0, 0, 0.4);
+}
+
+.tent{
+	font-size: 15px;
+}
+
 
 /* tablet and higher */
 @media only screen and (min-width: 768px){

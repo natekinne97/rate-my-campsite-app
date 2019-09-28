@@ -1,4 +1,33 @@
+
+/* whole display */
+.add-campsite{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* form */
+.new-site{
+	border: 1px solid black;
+}
+
+.new-site input{
+	margin-bottom: 3%;
+}
+
+.chosen-pic{
+    width: 20%;
+    height: 25vh;
+
+	background-size: cover;
+	background-position: 50% 50%;
+	margin-bottom: 3%;  
+	border-radius: 3%;
+}
+
+/* submit button */
 .new-site button{
-	width: 25%;
-	margin-top: 2%;
+	margin-bottom: 3%;
+	margin-top: 3%;
 }

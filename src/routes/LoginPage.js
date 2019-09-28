@@ -11,9 +11,8 @@ export default class LoginPage extends Component {
     }
 
     handleLoginSuccess = () => {
-        const { location, history } = this.props
-        const destination = (location.state || {}).from || '/'
-        history.push(destination)
+        const { history } = this.props
+        history.push(localStorage.lastUrl || '/');
     }
 
     render() {
@@ -23,8 +22,7 @@ export default class LoginPage extends Component {
                     onLoginSuccess={this.handleLoginSuccess}
                 />
           </React.Fragment>
-            
-            
+  
         )
     }
 }

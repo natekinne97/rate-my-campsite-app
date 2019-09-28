@@ -1,4 +1,5 @@
 import  config from '../config';
+import TokenService from '../services/token-service'
 
 const apiService = {
     getAllCampsites(){
@@ -28,7 +29,6 @@ const apiService = {
     },
     // get reviews for clicked on campsite
     getReviewsForSite(id){
-        console.log('actually getting called')
         return fetch(`${config.API_ENDPOINT}/campsites/${id}/reviews`, {
             headers: {
 
@@ -46,6 +46,7 @@ const apiService = {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
                 img, 
@@ -60,7 +61,7 @@ const apiService = {
                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
-            )
+        )
     },
     // gets the featured site for display
     getFeaturedSite() {
@@ -77,16 +78,17 @@ const apiService = {
     },
     // make a new review
     postReview(text, rating, campsite_id) {
-        console.log(text, 'text', rating, 'rating', campsite_id, 'id')
+        
         return fetch(`${config.API_ENDPOINT}/reviews/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
-                campsite_id,
-                rating,
                 text,
+                rating,
+                campsite_id
             }),
         })
             .then(res =>
@@ -95,7 +97,7 @@ const apiService = {
                     : res.json()
             )
 
-    }
+    },
 
 }
 

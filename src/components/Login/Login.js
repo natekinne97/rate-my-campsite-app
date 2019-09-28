@@ -1,10 +1,17 @@
 import React from 'react';
+import {Link } from 'react-router-dom';
+import './Login.css';
 import authApi from '../../api-services/auth-api';
 import TokenService from '../../services/token-service';
 
 class Login extends React.Component{
+   
     static defaultProps = {
         onLoginSuccess: () => { }
+    }
+
+    state={
+        error: null
     }
 
     handleSubmit = e =>{
@@ -18,16 +25,26 @@ class Login extends React.Component{
         .then(res=>{
             username.value = ''
             password.value = ''
+           
             // save token
             TokenService.saveAuthToken(res.authToken)
             this.props.onLoginSuccess()
+        }).catch(error=>{
+            console.log(error.error, 'error');
+            this.setState({
+                error: error.error
+            })
         })
     }
 
     render(){
         return(
-            <div>
+            <div className="login">
                 <header>Login</header>
+                {this.state.error
+                ? <p className="red">{this.state.error}</p>
+                : null}
+
                 <form className="login-form gen-form" onSubmit={this.handleSubmit}>
 
                     <label htmlFor="username">Username:</label>
@@ -37,7 +54,9 @@ class Login extends React.Component{
                     <input type="password" name="password" required/>
 
                     <button type="submit">Login</button>
+                    <Link to='/forgot-password'>Forgot password?</Link>
 		        </form>
+                
             </div>
         );
     }

@@ -12,6 +12,7 @@ const campsiteContext = new React.createContext({
     setInfo: ()=>{},
     setReview: ()=>{},
     setCampsites: ()=>{},
+    setUser: ()=>{},
     // insert data
     addReview: ()=>{},
     addCampsite: ()=>{},
@@ -23,12 +24,15 @@ const campsiteContext = new React.createContext({
 export default campsiteContext;
 
 export class CampsiteProvider extends Component{
+    _isMounted = false;
 
     state={
         campsites: [],
         siteInfo: [],
         reviews: [],
-        error: null
+        
+        error: null,
+        isLoading: true
     }
 
     setCampsites = campsites =>{
@@ -48,10 +52,12 @@ export class CampsiteProvider extends Component{
             reviews
         })
     }
+
+    // but doesnt always refresh correctly
     // add review to the state
     // inserts to the state a new review
     addReview = review => {
-        this.setReviews([
+        this.setReview([
             ...this.state.reviews,
             review
         ])
