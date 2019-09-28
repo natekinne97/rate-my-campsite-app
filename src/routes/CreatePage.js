@@ -13,6 +13,7 @@ export default class LoginPage extends Component {
     handleLoginSuccess = () => {
         console.log('pushing for redirect')
         const { history } = this.props
+        console.log(history, 'history');
         history.push( '/login');
     }
 

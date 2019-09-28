@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review form component renders the UI as expected 1`] = `
+<div>
+  <header>
+    Post Campground
+  </header>
+  <div>
+    chosen pic goes here
+  </div>
+  <form
+    className="new-site gen-form"
+    onSubmit={[Function]}
+  >
+    <label
+      htmlFor="img"
+    >
+      Campsite picture
+    </label>
+    <input
+      name="img"
+      required={true}
+      type="text"
+    />
+    <label
+      htmlFor="name"
+    >
+      Campsite name
+    </label>
+    <input
+      name="name"
+      required={true}
+      type="text"
+    />
+    <label
+      htmlFor="description"
+    >
+      Description
+    </label>
+    <textarea
+      name="description"
+      required={true}
+    />
+    <label
+      htmlFor="park-name"
+    >
+      Park name
+    </label>
+    <input
+      name="park"
+      required={true}
+      type="text"
+    />
+    <label
+      htmlFor="city"
+    >
+      City
+    </label>
+    <input
+      name="city"
+      required={true}
+      type="text"
+    />
+    <label
+      htmlFor="state"
+    >
+      State
+    </label>
+    <input
+      name="state"
+      required={true}
+      type="text"
+    />
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

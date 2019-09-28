@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review form component renders the UI as expected 1`] = `
+<div
+  className="featured-shell"
+>
+  <p
+    className="red"
+  >
+    Error occured. Please try again later
+  </p>
+  <p
+    className="red"
+  >
+    Error occured. Please try again later
+  </p>
+</div>
+`;
+
+exports[`Review form component renders the UI as expected with no unreads 1`] = `
+<div
+  className="featured-shell"
+>
+  <p
+    className="red"
+  >
+    Error occured. Please try again later
+  </p>
+  <p
+    className="red"
+  >
+    Error occured. Please try again later
+  </p>
+</div>
+`;

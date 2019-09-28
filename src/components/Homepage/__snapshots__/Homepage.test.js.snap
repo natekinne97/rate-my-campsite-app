@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review form component renders the UI as expected 1`] = `
+Array [
+  <div
+    className="landing-page"
+  >
+    <header>
+      <h2>
+        Show the world your great campsite discovories
+      </h2>
+      <p>
+        "A social media for campsites."
+      </p>
+      <p>
+        Post your favorite campsites and let the world review them.
+      </p>
+    </header>
+  </div>,
+  <div
+    className="featured-shell"
+  >
+    <p
+      className="red"
+    >
+      Error occured. Please try again later
+    </p>
+    <p
+      className="red"
+    >
+      Error occured. Please try again later
+    </p>
+  </div>,
+  <div
+    className="all-posts"
+  />,
+]
+`;
+
+exports[`Review form component renders the UI as expected with no unreads 1`] = `
+Array [
+  <div
+    className="landing-page"
+  >
+    <header>
+      <h2>
+        Show the world your great campsite discovories
+      </h2>
+      <p>
+        "A social media for campsites."
+      </p>
+      <p>
+        Post your favorite campsites and let the world review them.
+      </p>
+    </header>
+  </div>,
+  <div
+    className="featured-shell"
+  >
+    <p
+      className="red"
+    >
+      Error occured. Please try again later
+    </p>
+    <p
+      className="red"
+    >
+      Error occured. Please try again later
+    </p>
+  </div>,
+  <div
+    className="all-posts"
+  />,
+]
+`;
