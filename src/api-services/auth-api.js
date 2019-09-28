@@ -49,7 +49,20 @@ const authApi = {
                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
-        )
+        ).then(res => {
+            /*
+      whenever a logint is performed:
+      1. save the token in local storage
+      2. queue auto logout when the user goes idle
+      3. queue a call to the refresh endpoint based on the JWT's exp value
+    */
+            TokenService.saveAuthToken(res.authToken)
+            IdleService.regiserIdleTimerResets()
+            TokenService.queueCallbackBeforeExpiry(() => {
+                AuthApiService.postRefreshToken()
+            })
+            return res
+        })
     },
     // checks for user associated with token given 
     // user has 1 chance to open the link or it expires

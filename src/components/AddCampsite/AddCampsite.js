@@ -2,14 +2,35 @@ import React from 'react';
 import {Redirect} from 'react-router-dom';
 import apiService from '../../api-services/api-services';
 import campsiteContext from '../../context/context';
+import './AddCampsite.css';
 
 // displays the post form for making a new campsite
 // all gen-form classes will be kept in the indexcss
 class AddCampsite extends React.Component{
     static contextType = campsiteContext
 
+    static defaultProps = {
+        location: {},
+        history: {
+            push: () => { },
+        },
+    }
+
+    directToHome = ()=>{
+        const { history } = this.props
+        history.push('/');
+    }
+
     state={
-        submitted: false
+        submitted: false,
+        img: ''
+    }
+
+    onPicChange = ()=>{
+        const img = document.getElementById('new-img').value;
+        this.setState({
+            img
+        })
     }
 
     handleSubmit = e =>{
@@ -29,17 +50,17 @@ class AddCampsite extends React.Component{
             park.value, 
             city.value, state.value
             ).then(this.context.addNewCampsite)
-        .then(()=>{
+        .then(site=>{
             img.value = ''
             name.value = ''
             description.value = ''
             park.value =  ''
             city.value = ''
             state.value = ''
+            console.log(site, 'new site');
+            this.directToHome();
         })
         .catch(this.context.setError);
-
-
     }
 
     render(){
@@ -49,13 +70,17 @@ class AddCampsite extends React.Component{
         }
 
         return(
-            <div>
+            <div className="add-campsite">
                 <header>Post Campground</header>
-                <div>chosen pic goes here</div>
+                <div className="chosen-pic" style={{ backgroundImage: `url(${this.state.img})` }}>
+                    {this.state.img
+                    ? null
+                : <p>Chosen picture</p>}
+                </div>
                 <form className="new-site gen-form" onSubmit={this.handleSubmit}>
 
-                    <label htmlFor="img">Campsite picture</label>
-                    <input type="text" name="img" required/>
+                    <label htmlFor="new-img">Campsite picture</label>
+                    <input id="new-img" type="text" name="img" onChange={this.onPicChange} required/>
 
                     <label htmlFor="name">Campsite name</label>
                     <input type="text" name="name" required/>

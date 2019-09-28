@@ -10,18 +10,16 @@ export default class LoginPage extends Component {
         },
     }
 
-    handleLoginSuccess = () => {
-        console.log('pushing for redirect')
+    onCreate = () => {
         const { history } = this.props
-        console.log(history, 'history');
-        history.push( '/login');
+        history.push( '/');
     }
 
     render() {
         return (
             <React.Fragment>
                 <CreateAccount
-                    onLoginSuccess={this.handleLoginSuccess}
+                    onCreateSuccess={this.onCreate}
                 />
             </React.Fragment>
 
