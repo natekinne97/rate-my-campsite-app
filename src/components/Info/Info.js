@@ -40,7 +40,7 @@ class Info extends React.Component{
     renderTents = num => {
         let arr = [];
         for (let i = 0; i < 5; i++) {
-            if (i < num) {
+            if (i <= num) {
                 arr.push(<FontAwesomeIcon className="tent rev-tent" key={i} icon={faCampground} />);
             } else {
                 arr.push(<FontAwesomeIcon className="tent-rate tent tent-less" key={i} icon={faCampground} />);

@@ -41,7 +41,6 @@ class Campsite extends React.Component{
     renderCampsites(){
         
         const { campsites = [] } = this.context;
-        
         return campsites.map(site => 
                 <Link key={site.id} to={`/info/${site.id}`}>
                     <div className="post">

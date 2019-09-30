@@ -16,9 +16,9 @@ class AddCampsite extends React.Component{
         },
     }
 
-    directToHome = ()=>{
+    directToHome = id =>{
         const { history } = this.props
-        history.push('/');
+        history.push(`/info/${id}`);
     }
 
     state={
@@ -58,7 +58,8 @@ class AddCampsite extends React.Component{
             city.value = ''
             state.value = ''
             console.log(site, 'new site');
-            this.directToHome();
+            console.log('site.id');
+            this.directToHome(site.id);
         })
         .catch(this.context.setError);
     }
@@ -79,7 +80,7 @@ class AddCampsite extends React.Component{
                 </div>
                 <form className="new-site gen-form" onSubmit={this.handleSubmit}>
 
-                    <label htmlFor="new-img">Campsite picture</label>
+                    <label htmlFor="new-img">Link to campsite image</label>
                     <input id="new-img" type="text" name="img" onChange={this.onPicChange} required/>
 
                     <label htmlFor="name">Campsite name</label>
