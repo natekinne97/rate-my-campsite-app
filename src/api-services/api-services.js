@@ -41,21 +41,16 @@ const apiService = {
         )
     },
     // make a new site
-    addNewCampsite(img, name, description, park, city, state) {
+    addNewCampsite(formData) {
         return fetch(`${config.API_ENDPOINT}/campsites/`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json',
+                // 'content-type': 'application/json',
+                // 'content-type': 'multipart/form-data',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
-            body: JSON.stringify({
-                img, 
-                name, 
-                description, 
-                park, 
-                city, 
-                state
-            }),
+            body: formData,
+           
         })
             .then(res =>
                 (!res.ok)

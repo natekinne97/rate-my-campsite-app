@@ -76,7 +76,7 @@ class Review extends React.Component{
             
             <form className="gen-form " onSubmit={this.handleSubmit}>
                 <label htmlFor="rev">Review</label>
-                <textarea name="rev"></textarea>
+                <textarea name="rev" required></textarea>
                 <label>Tents</label>
 
                 <div className="rev-tents">
