@@ -69,7 +69,6 @@ class Featured extends React.Component {
                 "avg_reviews": parseFloat(campsites[num].avg_reviews).toFixed(1)
             }
             
-           
             // return the data
             return <Link to={`/info/${arr.id}`}>
                 <div className="featured-container">

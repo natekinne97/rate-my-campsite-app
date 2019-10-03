@@ -24,8 +24,6 @@ class AddCampsite extends React.Component{
     state={
         submitted: false,
         img: '',
-        selectedFile: null,
-        bgImage: null
     }
 
     onPicChange = ()=>{
@@ -35,52 +33,28 @@ class AddCampsite extends React.Component{
         })
     }
 
-    fileChangedHandler = (event)=>{
-       
-        this.setState({ 
-            selectedFile: event.target.files[0],
-            bgImage: URL.createObjectURL(event.target.files[0]) 
-        });
-        
-    }
 
     handleSubmit = e =>{
         e.preventDefault();
         
         // campground-pic, name, description, park-name, city, state
-        const { name, description, park, city, state} = e.target;
-
-        console.log(this.state.selectedFile, 'selected file being sent');
+        const { img,name, description, park, city, state} = e.target;
 
         this.setState({
             submitted: true
         })
         
-        let formData = new FormData();
-        formData.append('img', this.state.selectedFile);
-        formData.append('name', name.value);
-        formData.append('description', description.value);
-        formData.append('park', park.value);
-        formData.append('city', city.value);
-        formData.append('state', state.value);
-        console.log(formData, 'form data');
-
-        for (var key of formData.entries()) {
-            console.log(key[0] + ', ' + key[1])
-        }
-
-        const newCampsite = {
-            img: this.state.selectedFile,
-            name: name.value,
-            description: description.value,
-            park: park.value,
-            city: city.value,
-            state: state.value
-        }
-        console.log(newCampsite, 'new campsite');
+        
+        
+        
         // insert new campsite
         apiService.addNewCampsite(
-           formData
+            img.value, 
+            name.value, 
+            description.value, 
+            park.value, 
+            city.value, 
+            state.value
             ).then(this.context.addNewCampsite)
         .then(site=>{
             console.log(site);
@@ -105,7 +79,7 @@ class AddCampsite extends React.Component{
         return(
             <div className="add-campsite">
                 <header>Post Campground</header>
-                <div className="chosen-pic" style={{ backgroundImage: `url(${this.state.bgImage})` }}>
+                <div className="chosen-pic" style={{ backgroundImage: `url(${this.state.img})` }}>
                     {this.state.bgImage
                     ? null
                 : <p>Chosen picture</p>}
@@ -113,7 +87,7 @@ class AddCampsite extends React.Component{
                 <form className="new-site gen-form" id="add-site" onSubmit={this.handleSubmit}>
 
                     <label htmlFor="new-img">Link to campsite image</label>
-                    <input type="file" onChange={this.fileChangedHandler} />
+                    <input id="new-img" name="img" type="text" onChange={this.onPicChange} required/>
 
                     <label htmlFor="name">Campsite name</label>
                     <input type="text" name="name" required/>

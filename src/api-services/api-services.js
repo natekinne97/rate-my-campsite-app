@@ -1,5 +1,6 @@
 import  config from '../config';
-import TokenService from '../services/token-service'
+import TokenService from '../services/token-service';
+
 
 const apiService = {
     getAllCampsites(){
@@ -40,16 +41,23 @@ const apiService = {
                 : res.json()
         )
     },
+
     // make a new site
-    addNewCampsite(formData) {
+    addNewCampsite(img, name, description, park, city, state) {
         return fetch(`${config.API_ENDPOINT}/campsites/`, {
             method: 'POST',
             headers: {
-                // 'content-type': 'application/json',
-                // 'content-type': 'multipart/form-data',
+                'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
-            body: formData,
+            body: JSON.stringify({ 
+                img, 
+                name, 
+                description, 
+                park, 
+                city, 
+                state
+            }),
            
         })
             .then(res =>
