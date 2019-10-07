@@ -34,9 +34,9 @@ class AddCampsite extends React.Component{
     }
 
 
+
     handleSubmit = e =>{
         e.preventDefault();
-        
         // campground-pic, name, description, park-name, city, state
         const { img,name, description, park, city, state} = e.target;
 
@@ -48,24 +48,24 @@ class AddCampsite extends React.Component{
         
         
         // insert new campsite
-        apiService.addNewCampsite(
+       apiService.addNewCampsite(
             img.value, 
             name.value, 
             description.value, 
             park.value, 
             city.value, 
             state.value
-            ).then(this.context.addNewCampsite)
+
+            )
         .then(site=>{
-            console.log(site);
             name.value = ''
             description.value = ''
             park.value =  ''
             city.value = ''
             state.value = ''
-            console.log(site, 'new site');
-            console.log('site.id');
+            this.context.addCampsite(site);
             this.directToHome(site.id);
+           
         })
         .catch(this.context.setError);
     }

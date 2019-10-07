@@ -23,6 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
+    "kill": " sudo kill -9 `sudo lsof -t -i:3000`",
     "deploy": "now --prod ./build"
   },
   "eslintConfig": {

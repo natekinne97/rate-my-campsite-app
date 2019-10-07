@@ -20,7 +20,7 @@ class Review extends React.Component{
     }
 
     setTents = tent=>{
-        console.log(tent, 'tent clicked');
+        
         this.setState({
             tent: tent
         })
@@ -35,14 +35,14 @@ class Review extends React.Component{
         const { rev} = e.target;
         
        
-        console.log(this.state.tent)
+       
         apiService.postReview(
             rev.value,
             this.state.tent,
             +siteInfo.id
         )
             .then(rev=>{
-                console.log(rev);
+               
                 this.context.addReview(rev);
             })
             .then(() => {
