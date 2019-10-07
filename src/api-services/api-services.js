@@ -1,5 +1,5 @@
 import  config from '../config';
-import TokenService from '../services/token-service'
+import TokenService from '../services/token-service';
 
 const apiService = {
     getAllCampsites(){
@@ -14,6 +14,7 @@ const apiService = {
                 : res.json()
         )
     },
+
     // gets info for campsite clicked on
     getCampsiteById(id){
         return fetch(`${config.API_ENDPOINT}/campsites/${id}`, {
@@ -40,6 +41,8 @@ const apiService = {
                 : res.json()
         )
     },
+
+
     // make a new site
     addNewCampsite(img, name, description, park, city, state) {
         return fetch(`${config.API_ENDPOINT}/campsites/`, {
@@ -48,7 +51,7 @@ const apiService = {
                 'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
-            body: JSON.stringify({
+            body: JSON.stringify({ 
                 img, 
                 name, 
                 description, 
@@ -56,12 +59,20 @@ const apiService = {
                 city, 
                 state
             }),
+           
         })
-            .then(res =>
-                (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-        )
+            .then(res =>{
+
+                 if(!res.ok){
+                     
+                     return res.json().then(e => Promise.reject(e));
+                 }else{
+                    
+                     return res.json();
+                 }
+            }
+            
+            )
     },
     // gets the featured site for display
     getFeaturedSite() {
@@ -92,9 +103,11 @@ const apiService = {
             }),
         })
             .then(res =>
-                (!res.ok)
+                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
+            
+                
             )
 
     },

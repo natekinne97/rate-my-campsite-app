@@ -55,7 +55,7 @@ class CreateAccount extends React.Component {
                 // redirect to home page
                 this.props.onCreateSuccess();
             }).catch(error=>{
-                console.log(error);
+
                 this.setState({error});
             })
 

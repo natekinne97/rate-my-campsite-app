@@ -13,7 +13,7 @@ class ForgotPassword extends React.Component{
     handleSubmit =  e =>  {
         e.preventDefault();
         const {email} = e.target;
-        console.log(email.value);
+
         this.setState({
             wait: 'May take a moment',
             error: null
@@ -27,7 +27,7 @@ class ForgotPassword extends React.Component{
                 })
                 email.value = ''
             }).catch(error=>{
-                console.log(error, 'error');
+
                 this.setState({
                     sent: false,
                     error: error

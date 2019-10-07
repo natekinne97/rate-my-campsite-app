@@ -158,7 +158,7 @@ class App extends React.Component{
             />
           </Switch>
           <footer>
-            <Footer/>
+            <Footer/>   
           </footer>
         </main>
       </div>

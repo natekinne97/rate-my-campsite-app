@@ -21,6 +21,7 @@ const campsiteContext = new React.createContext({
     clearError: () => { },
 });
 
+
 export default campsiteContext;
 
 export class CampsiteProvider extends Component{
@@ -64,7 +65,7 @@ export class CampsiteProvider extends Component{
     }
     // add campsite to the state 
     addCampsite = campsite => {
-        this.setReviews([
+        this.setReview([
             ...this.state.campsites,
            campsite
         ])

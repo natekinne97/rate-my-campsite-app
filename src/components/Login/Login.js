@@ -17,7 +17,7 @@ class Login extends React.Component{
     handleSubmit = e =>{
         e.preventDefault();
         const {username, password} = e.target;
-        console.log('logged in');
+       
         authApi.postLogin({
             user_name: username.value,
             password: password.value,
@@ -30,7 +30,7 @@ class Login extends React.Component{
             TokenService.saveAuthToken(res.authToken)
             this.props.onLoginSuccess()
         }).catch(error=>{
-            console.log(error.error, 'error');
+           
             this.setState({
                 error: error.error
             })

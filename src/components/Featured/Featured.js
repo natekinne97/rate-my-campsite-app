@@ -31,7 +31,7 @@ class Featured extends React.Component {
     renderTents = num => {
         let arr = [];
         for (let i = 0; i < 5; i++) {
-            if (i < num) {
+            if (i <= num) {
                 arr.push(<FontAwesomeIcon className="tent" key={i} icon={faCampground} />);
             } else {
                 arr.push(<FontAwesomeIcon className="tent-rate tent" key={i} icon={faCampground} />);
@@ -69,7 +69,6 @@ class Featured extends React.Component {
                 "avg_reviews": parseFloat(campsites[num].avg_reviews).toFixed(1)
             }
             
-           
             // return the data
             return <Link to={`/info/${arr.id}`}>
                 <div className="featured-container">

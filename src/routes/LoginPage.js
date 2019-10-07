@@ -12,7 +12,12 @@ export default class LoginPage extends Component {
 
     handleLoginSuccess = () => {
         const { history } = this.props
-        history.push(localStorage.lastUrl || '/');
+        // check if last loaded page was login
+        if(localStorage.lastUrl === '/login'){
+            history.push('/')
+        }else{
+            history.push(localStorage.lastUrl);
+        }
     }
 
     render() {

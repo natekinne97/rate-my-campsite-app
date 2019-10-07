@@ -16,14 +16,14 @@ class AddCampsite extends React.Component{
         },
     }
 
-    directToHome = ()=>{
+    directToHome = id =>{
         const { history } = this.props
-        history.push('/');
+        history.push(`/info/${id}`);
     }
 
     state={
         submitted: false,
-        img: ''
+        img: '',
     }
 
     onPicChange = ()=>{
@@ -33,32 +33,39 @@ class AddCampsite extends React.Component{
         })
     }
 
+
+
     handleSubmit = e =>{
         e.preventDefault();
         // campground-pic, name, description, park-name, city, state
-        const { img, name, description, park, city, state} = e.target;
+        const { img,name, description, park, city, state} = e.target;
 
         this.setState({
             submitted: true
         })
-
+        
+        
+        
+        
         // insert new campsite
-        apiService.addNewCampsite(
+       apiService.addNewCampsite(
             img.value, 
             name.value, 
             description.value, 
             park.value, 
-            city.value, state.value
-            ).then(this.context.addNewCampsite)
+            city.value, 
+            state.value
+
+            )
         .then(site=>{
-            img.value = ''
             name.value = ''
             description.value = ''
             park.value =  ''
             city.value = ''
             state.value = ''
-            console.log(site, 'new site');
-            this.directToHome();
+            this.context.addCampsite(site);
+            this.directToHome(site.id);
+           
         })
         .catch(this.context.setError);
     }
@@ -73,14 +80,14 @@ class AddCampsite extends React.Component{
             <div className="add-campsite">
                 <header>Post Campground</header>
                 <div className="chosen-pic" style={{ backgroundImage: `url(${this.state.img})` }}>
-                    {this.state.img
+                    {this.state.bgImage
                     ? null
                 : <p>Chosen picture</p>}
                 </div>
-                <form className="new-site gen-form" onSubmit={this.handleSubmit}>
+                <form className="new-site gen-form" id="add-site" onSubmit={this.handleSubmit}>
 
-                    <label htmlFor="new-img">Campsite picture</label>
-                    <input id="new-img" type="text" name="img" onChange={this.onPicChange} required/>
+                    <label htmlFor="new-img">Link to campsite image</label>
+                    <input id="new-img" name="img" type="text" onChange={this.onPicChange} required/>
 
                     <label htmlFor="name">Campsite name</label>
                     <input type="text" name="name" required/>

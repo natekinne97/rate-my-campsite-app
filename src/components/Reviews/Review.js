@@ -20,11 +20,12 @@ class Review extends React.Component{
     }
 
     setTents = tent=>{
-        console.log(tent, 'tent clicked');
+        
         this.setState({
             tent: tent
         })
     }
+
     
 
     handleSubmit = e =>{
@@ -33,12 +34,17 @@ class Review extends React.Component{
         const {siteInfo} = this.context;
         const { rev} = e.target;
         
+       
+       
         apiService.postReview(
             rev.value,
             this.state.tent,
             +siteInfo.id
         )
-            .then(this.context.addReview)
+            .then(rev=>{
+               
+                this.context.addReview(rev);
+            })
             .then(() => {
                 rev.value = ''
             })
@@ -53,7 +59,7 @@ class Review extends React.Component{
 
     renderTents = () => {
         let arr = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             if (i < this.state.tent+1) {
                 arr.push(<FontAwesomeIcon className="tent" key={i} icon={faCampground} onClick={e=>this.setTents(i)} />);
             } else {
@@ -70,20 +76,13 @@ class Review extends React.Component{
             
             <form className="gen-form " onSubmit={this.handleSubmit}>
                 <label htmlFor="rev">Review</label>
-                <textarea name="rev"></textarea>
+                <textarea name="rev" required></textarea>
                 <label>Tents</label>
 
                 <div className="rev-tents">
                     {this.renderTents()}
                 </div>
                 
-                {/* <select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select> */}
                 <button type="submit">Submit Review</button>
             </form>
              
