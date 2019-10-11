@@ -26,13 +26,14 @@ class Campsite extends React.Component{
     // render all the tents for the avg review
     renderTents = num => {
         let arr = [];
-        for (let i = 0; i < 5 ; i++) {
-            if(i<num){
-                arr.push(<FontAwesomeIcon className="tent" key={i} icon={faCampground} />);
-            }else{
-                arr.push(<FontAwesomeIcon className="tent-rate tent" key={i} icon={faCampground} />);
+
+        for (let i = 1; i <= 5; i++) {
+            if (i <= num && num != 0) {
+                arr.push(<FontAwesomeIcon className="tent rev-tent" key={i} icon={faCampground} />);
+            } else {
+                arr.push(<FontAwesomeIcon className="tent-rate tent tent-less" key={i} icon={faCampground} />);
             }
-            
+
         }
         return arr;
     }
