@@ -9,6 +9,9 @@ Create an account and post the campsite with a picture of it and have the commun
 Live link to the site:
 https://rate-my-campsite-app.nathankinne.now.sh/
 
+Link to server repository:
+https://github.com/natekinne97/rate-my-campsite-server
+
 ![ratemycampsiteHome](https://user-images.githubusercontent.com/12354132/65820851-6650a180-e21d-11e9-9dff-16c2c657c8de.png)
 
 
