@@ -7,7 +7,7 @@ Rate My Campsite is a "social media" of sorts. If you love camping and want the 
 Create an account and post the campsite with a picture of it and have the community of people who love camping write reviews on the campsites you love.
 
 Live link to the site:
-https://build.nathankinne.now.sh/
+https://rate-my-campsite-app.nathankinne.now.sh/
 
 ![ratemycampsiteHome](https://user-images.githubusercontent.com/12354132/65820851-6650a180-e21d-11e9-9dff-16c2c657c8de.png)
 
